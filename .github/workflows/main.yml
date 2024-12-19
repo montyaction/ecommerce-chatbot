@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+
+jobs:
+    backend-tests:
+        name: Backend Tests
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./backend
+        steps:
+          - uses: actions/checkout@v3
+          - name: Set up Python
+            uses: actions/setup-python@v4
+            with:
+                python-version: '3.9' # Or your desired Python version
+          - name: Install dependencies
+            run: pip install -r requirements.txt
+          - name: Run tests
+            run: pytest # Or your test command
+
+    frontend-build:
+        name: Frontend Build
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+          - uses: actions/checkout@v3
+          - name: Set up Node.js
+            uses: actions/setup-node@v3
+            with:
+                node-version: 16 # Or your desired Node.js version
+          - name: Install dependencies
+            run: npm ci # Use npm ci for clean installs in CI
+          - name: Build
+            run: npm run build
+
+    deploy: # Example deployment job (runs after successful build)
+        needs: frontend-build # Ensure the frontend build finishes successfully
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main' # Only deploy on pushes to main
+        steps:
+          - name: Deploy to server or cloud provider
+            # Add your deployment steps here (e.g., using SSH, AWS CLI, etc.)
+            run: echo "Deploying to production..."

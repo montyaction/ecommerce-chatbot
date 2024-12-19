@@ -1,0 +1,15 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs (if applicable at the project root level)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Potential top-level build output
+build/
+
+# Nested node_modules (if any outside of frontend)
+node_modules/
