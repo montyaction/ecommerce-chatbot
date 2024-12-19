@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "prettier": "^3.4.2"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:frontend": "eslint frontend",
+    "lint:backend": "eslint backend/**/*.py",
+    "test": "npm run test --prefix frontend && cd backend && pytest"
+  }
+}

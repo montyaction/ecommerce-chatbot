@@ -2,14 +2,50 @@
 .DS_Store
 Thumbs.db
 
-# IDEs (if applicable at the project root level)
+# IDEs and Editors
 .idea/
 .vscode/
-*.swp
-*.swo
+*.swp        # Vim swap files
+*.swo        # Vim swap files
+*.orig       # Backup files (often created by editors)
+*.rej        # Reject files (from merge conflicts)
 
-# Potential top-level build output
-build/
+# Build and Distribution
+build/         # General build output
+dist/          # Distribution files
+out/           # Another common output directory
+target/        # Maven/Gradle target directory
+*.egg-info     # Python egg info
+__pycache__/   # Python byte code
 
-# Nested node_modules (if any outside of frontend)
+# Dependencies (if any at root level, unlikely but possible)
 node_modules/
+venv/ # Python virtual env
+env/ # Python virtual env
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.temp
+*.bak
+*.pyc # Python compiled files
+
+# Environment files (CRUCIAL!)
+.env
+.env.*
+*.local
+
+# macOS specific
+.AppleDouble
+.LSOverride
+
+# Windows specific
+Desktop.ini
+
+# Linux specific (less common in project root, but good to include)
+*.swp
+
+# Optional, but often useful
+.vscode-test/ # VS Code test files
+.history/     # Local history files (e.g., in some editors)
+*.DS_Store
