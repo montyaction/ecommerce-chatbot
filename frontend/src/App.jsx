@@ -1,26 +1,24 @@
-import { useState } from 'react';
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css';
-import { AppProvider } from './store/AppContext';
-import { Navbar } from './components/layout/Navbar';
-import { Footer } from './components/layout/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './store/AuthContext';
+import MainLayout from './components/layout/MainLayout'; // Import the layout
 import Home from './pages/Home';
+import AuthPage from './pages/Auth';
+import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <AppProvider>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Home />
-        </main>
-        <Footer />
-      </div>
-    </AppProvider>
-  )
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route element={<MainLayout />}> {/* Use the layout as a parent route */}
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
 export default App;

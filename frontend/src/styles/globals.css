@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply h-full m-0;
-}
-
-#root {
-  @apply min-h-screen;
-}
-
 /* Your custom styles go here */
 @layer base {
   body {
