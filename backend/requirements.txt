@@ -5,5 +5,3 @@ psycopg2-binary # If using PostgreSQL (or other database driver)
 requests       # If making external API calls
 gunicorn       # For production WSGI server (optional)
 python-dotenv  # For loading environment variables
-
-# Add other packages as needed
