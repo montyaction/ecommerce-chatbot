@@ -1,8 +1,10 @@
-from fastapi import APIRouter, Depends, Request
+# backend/app/controllers/chatbot_controller.py
+from fastapi import APIRouter, Depends, HTTPException, Request, logger
 from typing import List
-from backend.app.models.product_model import Product
+from app.models.product_model import Product
 from app.services.chatbot_service import ChatbotService
-from app import limiter, oauth2_scheme
+from app import oauth2_scheme
+from app.core.limiter import limiter
 
 router = APIRouter()
 chatbot_service = ChatbotService()
@@ -14,9 +16,12 @@ async def chat_endpoint(
     message: str,
     token: str = Depends(oauth2_scheme)
 ):
-    # Add your chatbot logic here
-    response = await chatbot_service.process_message(token, message)
-    return {"response": response}
+    try:
+        response = await chatbot_service.process_message(token, message)
+        return {"response": response}
+    except Exception as e:
+        logger.exception(f"Error in chat endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Error processing message")
 
 @router.get("/products")
 @limiter.limit("100/minute")
@@ -24,5 +29,9 @@ async def get_products(
     request: Request,
     token: str = Depends(oauth2_scheme)
 ) -> List[Product]:
-    # Add your product retrieval logic here
-    return []
+    try:
+        # return await chatbot_service.get_product_recommendations(token)
+        return []
+    except Exception as e:
+        logger.exception(f"Error getting products: {e}")
+        raise HTTPException(status_code=500, detail="Error retrieving products")

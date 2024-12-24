@@ -1,12 +1,15 @@
-from fastapi import Request, FastAPI, HTTPException
+# backend/app/middleware/error_handlers.py
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from typing import Union
+from app.core.limiter import limiter    # Updated import
 
 def setup_error_handlers(app: FastAPI):
     """Configure global error handlers"""
-    
+    app.state.limiter = limiter    # Set up rate limiter
+
     @app.exception_handler(Exception)
     async def global_exception_handler(
         request: Request,
@@ -43,6 +46,3 @@ def setup_error_handlers(app: FastAPI):
     ) -> Union[JSONResponse, None]:
         """Handle rate limit exceeded errors"""
         return _rate_limit_exceeded_handler(request, exc)
-
-    # Set up rate limiter
-    app.state.limiter = app.limiter
