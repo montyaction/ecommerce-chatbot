@@ -1,0 +1,51 @@
+eslintrc.json
+
+{
+    "root": true, // Important for monorepos or multi-package projects
+    "env": {
+        "browser": true, // Browser environment
+        "es2021": true, // ECMAScript 2021 features
+        "node": true // Node.js environment (if needed)
+    },
+    "extends": [
+        "eslint:recommended", // Recommended ESLint rules
+        "plugin:react/recommended", // Recommended React rules
+        "plugin:react-hooks/recommended", // Recommended React Hooks rules
+        "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. Make sure this is always the last configuration in the extends array. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true // Enable JSX parsing
+        },
+        "ecmaVersion": "latest", // Use the latest ECMAScript version
+        "sourceType": "module" // Use ECMAScript modules
+    },
+    "plugins": [
+        "react", // React plugin
+        "react-hooks", // React Hooks plugin
+        "prettier" // Prettier plugin
+    ],
+    "rules": {
+        // Your custom ESLint rules go here
+        "no-unused-vars": "warn", // Example: Warn about unused variables
+        "react/prop-types": "off", // Example: Turn off prop-types checking (if not using TypeScript)
+        "react/react-in-jsx-scope": "off" //If you are using React 17+ and not importing React in every file.
+    },
+    "overrides": [ // For specific file types or patterns
+        {
+            "files": [
+                "backend/**/*.py"
+            ], // Files to apply these overrides to
+            "plugins": [
+                "python"
+            ],
+            "extends": [
+                "plugin:python/recommended"
+            ],
+            "parser": "python-eslint-parser",
+            "parserOptions": {
+                "project": "./backend/pyproject.toml" //if you don't have pyproject.toml you can remove this section
+            }
+        }
+    ]
+}

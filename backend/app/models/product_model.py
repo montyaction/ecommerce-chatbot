@@ -1,3 +1,4 @@
+# backend/app/models/product_model.py
 from pydantic import BaseModel
 from typing import Optional
 
